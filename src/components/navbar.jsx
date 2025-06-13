@@ -1,14 +1,32 @@
+import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import BASE_URL from '../utils/base_url';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { removeuser} from '../utils/userslice';
 
 const Navbar = () => {
   const user = useSelector((store) => store.user);
-
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
   const hasValidUser = user && typeof user === 'object' && Object.keys(user).length > 0;
-
+  const handleLogout = async () => {
+    try {
+      await axios.post(BASE_URL+'/logout', {}, { withCredentials: true });
+      dispatch(removeuser()); // Clear user data from Redux store
+       return navigation('/login'); // Redirect to login page
+    }
+    catch (error) {
+      console.error('Error logging out:', error);
+    }
+  }
   return (
     <div className="navbar bg-neutral text-amber-50 shadow-sm">
       <div className="flex-1">
+       <Link to="/" className="btn btn-ghost text-xl">
         <a className="btn btn-ghost text-xl">DevTinder</a>
+        </Link>
       </div>
 
       {hasValidUser ? (
@@ -31,17 +49,22 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-neutral rounded-box z-50 mt-3 w-52 p-2 shadow"
               role="menu"
             >
               <li role="menuitem">
-                <a className="justify-between" href="/profile">
+               <Link to="/profile" className="flex items-center gap-2"> 
                   Profile
-                  <span className="badge">New</span>
-                </a>
+                  </Link>
+                
               </li>
               <li role="menuitem">
                 <a href="/settings">Settings</a>
+              </li>
+              <li role="menuitem">
+                <a onClick={handleLogout} className="flex items-center gap-2">
+                  Logout
+                  </a>
               </li>
             </ul>
           </div>
