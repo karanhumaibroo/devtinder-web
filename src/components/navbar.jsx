@@ -25,7 +25,7 @@ const Navbar = () => {
     <div className="navbar bg-neutral text-amber-50 shadow-sm">
       <div className="flex-1">
        <Link to="/" className="btn btn-ghost text-xl">
-        <a className="btn btn-ghost text-xl">DevTinder</a>
+        <span className="btn btn-ghost text-xl">DevTinder</span>
         </Link>
       </div>
 
@@ -53,13 +53,24 @@ const Navbar = () => {
               role="menu"
             >
               <li role="menuitem">
-               <Link to="/profile" className="flex items-center gap-2"> 
-                  Profile
+               <Link to="/" className="flex items-center gap-2"> 
+                  Feed
                   </Link>
                 
               </li>
               <li role="menuitem">
-                <a href="/settings">Settings</a>
+               <Link to="/profile" className="flex items-center gap-2"> 
+                  Profileedit
+                  </Link>
+                
+              </li>
+              <li role="menuitem">
+                <Link  to="/connections">Connections</Link>
+                
+              </li>
+              <li role="menuitem">
+                <Link  to="/requests">Requests</Link>
+                
               </li>
               <li role="menuitem">
                 <a onClick={handleLogout} className="flex items-center gap-2">
