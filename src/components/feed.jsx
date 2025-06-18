@@ -3,25 +3,22 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addfeed } from '../utils/feedslice';
 import BASE_URL from '../utils/base_url';
-import Usercard from './usercard';
+import UserCard from './usercard';
 
 const Feed = () => {
   const feed = useSelector((store) => store.feed); // Access the feed state
   const dispatch = useDispatch();
 
   const getFeed = async () => {
-    // Fetch feed only if feed is null or an empty array
-    if (feed) return; 
+    // Fetch feed only if feed is an empty array
+    if (feed && feed.length > 0) return; 
     try {
       const response = await axios.get(`${BASE_URL}/feed`, {
         withCredentials: true,
       });
-      console.log('Feed fetched successfully:', response.data.connections); // Log the fetched data
-      if (response.data.connections) {
-        dispatch(addfeed(response.data.connections)); // Dispatch the feed data to Redux store
-      } else {
-        console.error('No connections found in the response');
-      }
+      // Log the fetched data
+      console.log('Fetched feed data:', response.data);
+      dispatch(addfeed(response.data.connections)); // Dispatch the feed data to Redux store
     } catch (error) {
       console.error('Error fetching feed:', error);
     }
@@ -31,14 +28,22 @@ const Feed = () => {
     getFeed();
   }, []); // Fetch feed on component mount
 
-  return (
-    feed && (
-      <div className='flex flex-col items-center justify-center gap-4 my-10'>
-        
-          <Usercard  user={feed[0]} />
-       
+  if (!feed) return <div>Loading...</div>; // Show loading state while fetching feed
+  if (feed.length <= 0) {
+    return (
+      <div className="text-center my-5">
+        <h1 className="text-3xl font-bold">No Feed Available</h1>
+        <p className="text-lg text-gray-600">You have no feed yet. Start connecting with others!</p>
       </div>
-    )
+    );
+  }
+
+  return (
+    <div className='flex flex-col items-center justify-center gap-4 my-10'>
+      {feed.map((user) => (
+        <UserCard key={user._id} user={user} /> // Render UserCard for each user in the feed
+      ))}
+    </div>
   );
 };
 

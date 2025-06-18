@@ -1,6 +1,6 @@
 
 import Body from './body.jsx';
-import Login from './login.jsx';
+//import Login from './login.jsx';
 import Profile from './profile.jsx';
 import Feed from './feed.jsx';
 import React from 'react';
@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import appstore from '../utils/appstore.js';
 import Connections from './connections.jsx';
 import Requests from './request.jsx';
+import AuthForm from './login.jsx';
 function App() {
   
   return (
@@ -19,7 +20,7 @@ function App() {
     <Routes >
       <Route path='/' element={<Body />} >
      <Route path='/' element={<Feed/>} />
-      <Route path='/login' element={<Login />} />
+      <Route path='/login' element={<AuthForm />} />
       <Route path='/profile' element={<Profile />} />
       <Route path='/connections' element={<Connections/>} />
       <Route path='/requests' element={<Requests />} />

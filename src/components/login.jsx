@@ -3,93 +3,131 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { adduser } from '../utils/userslice';
-import BASE_URL from '../utils/base_url';
-const Login = () => {
-  const [email, setEmail] = useState('vaibhav@gmail.com');
-  const [password, setPassword] = useState('Vaibhav@123');
+
+const BASE_URL = 'http://localhost:8000';
+
+const AuthForm = () => {
+  const [isLogin, setIsLogin] = useState(true); // true for login, false for signup
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
-  const navigate=useNavigate();
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+  const navigate = useNavigate();
+
+  const clearForm = () => {
+    setName('');
+    setEmail('');
+    setPassword('');
+    setErrorMessage('');
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const toggleMode = () => {
+    setIsLogin((prev) => !prev);
+    clearForm();
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission
-    setErrorMessage(''); // Clear any previous error messages
+    event.preventDefault();
+    setErrorMessage('');
 
     try {
-      const res = await axios.post(
-        BASE_URL +'/login',
-        {
-          email: email,
-          password: password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const endpoint = isLogin ? '/login' : '/signup';
+      const payload = isLogin
+        ? { email, password }
+        : { name, email, password };
 
-      // Handle successful login (e.g., redirect, store token)
-      console.log('Login successful:');
-      dispatch(adduser(res.data));
-      return navigate('/');
-      // Assuming the response contains user data
-      // Example: Redirect to a dashboard page
-      // window.location.href = '/dashboard';
+      const res = await axios.post(BASE_URL + endpoint, payload, {
+        withCredentials: true,
+      });
+
+      if (isLogin) {
+        dispatch(adduser(res.data));
+        navigate('/');
+      } else {
+        dispatch(adduser(res.data.user));
+        navigate('/profile');
+      }
     } catch (error) {
-      console.error('Login failed:', error);
-      setErrorMessage('Login failed. Please check your credentials.');
+      setErrorMessage(isLogin ? 'Login failed. Please check your credentials.' : 'Signup failed. Please try again.');
     }
   };
 
   return (
-    <div className="h-screen  place-items-center my-10">
-      <div className="card bg-primary text-primary-content w-96">
-        <div className="card-body">
-          <h2 className="card-title">Login!</h2>
-          {errorMessage && <div className="alert alert-error">{errorMessage}</div>}
-          <form onSubmit={handleSubmit}>
+    <div className="flex justify-center my-12 px-4 ">
+      <div className="card bg-gray-200 shadow-lg rounded-lg w-full max-w-md p-6 ">
+        <h2 className="text-2xl font-bold text-center mb-6">{isLogin ? 'Login' : 'Sign Up'}</h2>
+        {errorMessage && (
+          <div className="alert alert-error mb-4 text-red-600 font-medium">{errorMessage}</div>
+        )}
+        <form onSubmit={handleSubmit} noValidate>
+          {!isLogin && (
             <div className="mb-4">
-              <label htmlFor="email" className="label">
-                <span className="label-text">Email ID</span>
+              <label htmlFor="name" className="block text-gray-700 font-semibold mb-1">
+                Name
               </label>
               <input
-                type="email"
-                placeholder="Your email"
-                className="input input-bordered text-black max-w-xs w-full"
-                value={email}
-                onChange={handleEmailChange}
-                required
+                type="text"
+                id="name"
+                placeholder="Your name"
+                className="border border-gray-300 rounded-md w-full max-w-xs px-3 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required={!isLogin}
+                autoComplete="name"
               />
             </div>
-            <div className="mb-4">
-              <label htmlFor="password" className="label">
-                <span className="label-text">Password</span>
-              </label>
-              <input
-                type="password"
-                placeholder="Your password"
-                className="input input-bordered text-black max-w-xs w-full"
-                value={password}
-                onChange={handlePasswordChange}
-                required
-              />
-            </div>
-            <div className="card-actions justify-end">
-              <button type="submit" className="btn">
-                Enter
-              </button>
-            </div>
-          </form>
-        </div>
+          )}
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">
+              Email ID
+            </label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Your email"
+              className="border border-gray-300 rounded-md w-full max-w-xs px-3 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="block text-gray-700 font-semibold mb-1">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Your password"
+              className="border border-gray-300 rounded-md w-full max-w-xs px-3 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete={isLogin ? 'current-password' : 'new-password'}
+            />
+          </div>
+          <div className="flex justify-between items-center">
+            <button
+              type="submit"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md transition duration-200"
+            >
+              {isLogin ? 'Login' : 'Sign Up'}
+            </button>
+            <button
+              type="button"
+              onClick={toggleMode}
+              className="text-blue-600 underline text-sm hover:text-blue-800"
+              aria-label={isLogin ? 'Switch to Signup' : 'Switch to Login'}
+            >
+              {isLogin ? "Don't have an account? Sign Up" : 'Already have an account? Login'}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default AuthForm;
