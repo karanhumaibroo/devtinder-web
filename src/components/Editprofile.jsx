@@ -55,7 +55,7 @@ const EditProfile = ({ user }) => {
                                 <input
                                     type="text"
                                     placeholder="Your name"
-                                    className="input input-bordered text-black max-w-xs w-full"
+                                    className="input input-bordered text-white max-w-xs w-full"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                 />
@@ -67,7 +67,7 @@ const EditProfile = ({ user }) => {
                                 <input
                                     type="number"
                                     placeholder="Your age"
-                                    className="input input-bordered text-black max-w-xs w-full"
+                                    className="input input-bordered text-white max-w-xs w-full"
                                     value={age}
                                     onChange={(e) => setAge(e.target.value)}
                                 />
@@ -79,7 +79,7 @@ const EditProfile = ({ user }) => {
                                 <input
                                     type="text"
                                     placeholder="Gender"
-                                    className="input input-bordered text-black max-w-xs w-full"
+                                    className="input input-bordered text-white max-w-xs w-full"
                                     value={gender}
                                     onChange={(e) => setGender(e.target.value)}
                                 />
@@ -91,7 +91,7 @@ const EditProfile = ({ user }) => {
                                 <input
                                     type="text"
                                     placeholder="Your photo URL"
-                                    className="input input-bordered text-black max-w-xs w-full"
+                                    className="input input-bordered text-white max-w-xs w-full"
                                     value={photourl}
                                     onChange={(e) => setPhotourl(e.target.value)}
                                 />
@@ -103,7 +103,7 @@ const EditProfile = ({ user }) => {
                                 <input
                                     type="text"
                                     placeholder="About you"
-                                    className="input input-bordered text-black max-w-xs w-full"
+                                    className="input input-bordered text-white max-w-xs w-full"
                                     value={about}
                                     onChange={(e) => setAbout(e.target.value)}
                                 />
@@ -115,7 +115,7 @@ const EditProfile = ({ user }) => {
                                 <input
                                     type="text"
                                     placeholder="Your skills"
-                                    className="input input-bordered text-black max-w-xs w-full"
+                                    className="input input-bordered text-white max-w-xs w-full"
                                     value={skills}
                                     onChange={(e) => setSkills(e.target.value)}
                                 />

@@ -35,7 +35,8 @@ const UserCard = ({ user }) => {
   const defaultPhotoUrl = "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png";
 
   return (
-    <div className="card bg-base-300 w-96 shadow-xl">
+   // <div className="card bg-base-300 w-96 shadow-xl">
+   <div className="card bg-base-300 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg shadow-xl">
       <figure>
         <img src={photourl || defaultPhotoUrl} alt="User  photo" className="object-cover h-48 w-full" />
       </figure>

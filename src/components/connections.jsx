@@ -42,7 +42,7 @@ const Connections = () => {
         {connections.map((connection) => {
           const { name, about, photourl, age, gender, skills } = connection; // Destructure directly in the map function
           return (
-            <div key={name} className="card bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
+            <div key={name} className="card bg-black shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
               <figure className="h-36 w-full"> {/* Reduced height from h-48 to h-36 */}
                 <img
                   src={photourl || "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"}
@@ -52,7 +52,7 @@ const Connections = () => {
               </figure>
               <div className="card-body p-4"> {/* Reduced padding for a more compact look */}
                 <h2 className="card-title font-bold text-2xl mb-2">{name}</h2>
-                <p className="text-gray-700 mb-2">{about}</p>
+                <p className="text-white-700 mb-2">{about}</p>
                 <p className="font-semibold">Age: {age}</p>
                 <p className="font-semibold">Gender: {gender}</p>
                 <p className="font-semibold">Skills: {skills}</p>

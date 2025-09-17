@@ -56,7 +56,7 @@ const AuthForm = () => {
   return (
     <div className="flex justify-center my-12 px-4 ">
       <div className="card bg-gray-200 shadow-lg rounded-lg w-full max-w-md p-6 ">
-        <h2 className="text-2xl font-bold text-center mb-6">{isLogin ? 'Login' : 'Sign Up'}</h2>
+        <h2 className="text-2xl text-black font-bold text-center mb-6">{isLogin ? 'Login' : 'Sign Up'}</h2>
         {errorMessage && (
           <div className="alert alert-error mb-4 text-red-600 font-medium">{errorMessage}</div>
         )}
