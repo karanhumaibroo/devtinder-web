@@ -39,6 +39,7 @@ const FeedUserCard = ({ user, onSwipe }) => {
 
   
 
+
 return (
   <AnimatePresence>
     <motion.div
@@ -46,33 +47,33 @@ return (
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.8 }}
       transition={{ duration: 0.3 }}
-      className="card bg-base-300 w-full max-w-2xl mx-auto my-8 shadow-2xl" // Changed these classes
+      className="card bg-base-300 w-full max-w-xl mx-auto my-4 shadow-xl" // Reduced max-width and margin
     >
-      <figure className="h-96"> {/* Increased height */}
+      <figure className="h-72"> {/* Reduced height */}
         <img 
           src={photourl || defaultPhotoUrl} 
           alt="User photo" 
           className="object-cover w-full h-full" 
         />
       </figure>
-      <div className="card-body p-8"> {/* Added more padding */}
-        <h2 className="card-title text-3xl mb-4">{name}</h2> {/* Increased text size */}
-        {age && gender && <p className="text-xl mb-3">{age + ", " + gender}</p>} {/* Increased text size */}
-        <p className="text-lg mb-6">{about}</p> {/* Increased text size */}
+      <div className="card-body p-6"> {/* Reduced padding */}
+        <h2 className="card-title text-2xl mb-2">{name}</h2> {/* Reduced text size and margin */}
+        {age && gender && <p className="text-lg mb-2">{age + ", " + gender}</p>}
+        <p className="text-base mb-4">{about}</p>
         {message && (
-          <p className="text-center text-red-500 my-4 text-lg">{message}</p>
+          <p className="text-center text-red-500 my-2 text-sm">{message}</p>
         )}
-        <div className="card-actions justify-center my-6"> {/* Added more margin */}
+        <div className="card-actions justify-center mt-2"> {/* Reduced margin */}
           <button 
             onClick={() => handleButtonClick("ignored", _id)} 
-            className="btn btn-primary btn-lg" // Made button larger
+            className="btn btn-primary" // Removed btn-lg
             disabled={loading}
           >
             {loading ? 'Ignoring...' : 'Ignore'}
           </button>
           <button 
             onClick={() => handleButtonClick("interested", _id)} 
-            className="btn btn-secondary btn-lg" // Made button larger
+            className="btn btn-secondary" // Removed btn-lg
             disabled={loading}
           >
             {loading ? 'Sending...' : 'Interested'}
@@ -82,6 +83,8 @@ return (
     </motion.div>
   </AnimatePresence>
 );
+
+
 
 
 };
