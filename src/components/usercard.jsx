@@ -30,6 +30,8 @@ const UserCard = ({ user }) => {
       setLoading(false); // Set loading to false when the request is complete
     }
   };
+  
+
 
   // Default photo URL
   const defaultPhotoUrl = "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png";
@@ -67,3 +69,6 @@ const UserCard = ({ user }) => {
 };
 
 export default UserCard;
+
+
+
