@@ -42,6 +42,7 @@ const FeedUserCard = ({ user, onSwipe }) => {
 
 
 
+
 return (
   <AnimatePresence>
     <motion.div
@@ -49,9 +50,9 @@ return (
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.8 }}
       transition={{ duration: 0.3 }}
-      className="card bg-base-300 w-full max-w-xl mx-auto mt-2 mb-6 shadow-xl" // Adjusted top and bottom margins
+      className="card bg-base-300 w-full max-w-xl mx-auto mt-2 mb-6 shadow-xl"
     >
-      <figure className="h-80"> {/* Increased height slightly */}
+      <figure className="h-80">
         <img 
           src={photourl || defaultPhotoUrl} 
           alt="User photo" 
@@ -59,13 +60,37 @@ return (
         />
       </figure>
       <div className="card-body p-6">
-        <h2 className="card-title text-2xl">{name}</h2>
-        {age && gender && <p className="text-lg">{age + ", " + gender}</p>}
-        <p className="text-base my-2">{about}</p> {/* Added vertical margin */}
+        {/* Name and Basic Info */}
+        <div className="flex justify-between items-center">
+          <h2 className="card-title text-2xl">{name}</h2>
+          {age && gender && (
+            <span className="badge badge-secondary">
+              {age} • {gender}
+            </span>
+          )}
+        </div>
+
+        {/* Skills and About */}
+        <div className="space-y-2">
+          {user.skills && (
+            <div className="flex flex-wrap gap-1">
+              {user.skills.split(',').map((skill, index) => (
+                <span key={index} className="badge badge-sm badge-primary">
+                  {skill.trim()}
+                </span>
+              ))}
+            </div>
+          )}
+          <p className="text-base">{about}</p>
+        </div>
+
+        {/* Error Message */}
         {message && (
-          <p className="text-center text-red-500 my-2 text-sm">{message}</p>
+          <p className="text-center text-red-500 text-sm">{message}</p>
         )}
-        <div className="card-actions justify-center mt-4"> {/* Increased top margin */}
+
+        {/* Action Buttons */}
+        <div className="card-actions justify-center mt-2">
           <button 
             onClick={() => handleButtonClick("ignored", _id)} 
             className="btn btn-primary"
@@ -85,7 +110,6 @@ return (
     </motion.div>
   </AnimatePresence>
 );
-
 
 
 
