@@ -3,8 +3,9 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { adduser } from '../utils/userslice';
+import BASEURL from '../utils/base_url';
 
-const BASE_URL = 'http://localhost:8000';
+const BASE_URL = BASEURL; 
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true); // true for login, false for signup
