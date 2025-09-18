@@ -64,7 +64,7 @@ return (
         <div className="flex justify-between items-center">
           <h2 className="card-title text-2xl">{name}</h2>
           {age && gender && (
-            <span className="badge badge-secondary text-base">
+            <span className="badge badge-accent text-base">
               {age} • {gender}
             </span>
           )}
