@@ -64,25 +64,14 @@ return (
         <div className="flex justify-between items-center">
           <h2 className="card-title text-2xl">{name}</h2>
           {age && gender && (
-            <span className="badge badge-secondary">
+            <span className="badge badge-secondary text-base">
               {age} • {gender}
             </span>
           )}
         </div>
 
-        {/* Skills and About */}
-        <div className="space-y-2">
-          {user.skills && (
-            <div className="flex flex-wrap gap-1">
-              {user.skills.split(',').map((skill, index) => (
-                <span key={index} className="badge badge-sm badge-primary">
-                  {skill.trim()}
-                </span>
-              ))}
-            </div>
-          )}
-          <p className="text-base">{about}</p>
-        </div>
+        {/* About */}
+        <p className="text-base">{about}</p>
 
         {/* Error Message */}
         {message && (
